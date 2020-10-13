@@ -6,7 +6,7 @@ basic.forever(function () {
     spr.turnRight(90)
     while (true) {
         if (!finished) {
-            basic.pause(1000)
+            basic.pause((points > 5) ? (points > 10) ? 250 : 500: 1000)
             spr.move(1)
             if (spr.get(LedSpriteProperty.Y) == 4) {
                 if (!sprG.isTouching(spr)) {
@@ -23,11 +23,19 @@ basic.forever(function () {
 
 input.onButtonPressed(Button.A, function () {
     tryReset()
-    sprG.move(-1)
+    if (sprG.get(LedSpriteProperty.X) == 0) {
+        sprG.set(LedSpriteProperty.X, 4)
+    } else {
+        sprG.move(-1)
+    }
 });
 input.onButtonPressed(Button.B, function () {
     tryReset()
-    sprG.move(1)
+    if (sprG.get(LedSpriteProperty.X) == 4) {
+        sprG.set(LedSpriteProperty.X, 0)
+    } else {
+        sprG.move(1)
+    }
 });
 
 function tryReset() {
