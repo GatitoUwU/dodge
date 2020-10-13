@@ -10,15 +10,9 @@ basic.forever(function () {
             spr.move(1)
             if (spr.get(LedSpriteProperty.Y) == 4) {
                 if (!sprG.isTouching(spr)) {
-                    spr.delete();
-                    spr = game.createSprite(randint(0, 4), 0);
-                    spr.turnRight(90)
-                    points++;
+                    notTouching()
                 } else {
-                    spr.delete();
-                    sprG.delete();
-                    basic.showNumber(points)
-                    finished = true;
+                    touching();
                 }
             }
         } else {
@@ -28,18 +22,33 @@ basic.forever(function () {
 })
 
 input.onButtonPressed(Button.A, function () {
-    tryReset();
-    sprG.move(-1);
+    tryReset()
+    sprG.move(-1)
 });
 input.onButtonPressed(Button.B, function () {
-    tryReset();
-    sprG.move(1);
+    tryReset()
+    sprG.move(1)
 });
 
 function tryReset() {
     if (!finished) return;
     finished = false;
-    spr = game.createSprite(randint(0, 4), 0);
-    sprG = game.createSprite(2, 4);
+    spr = game.createSprite(randint(0, 4), 0)
+    sprG = game.createSprite(2, 4)
     spr.turnRight(90)
+    points = 0
+}
+
+function notTouching () {
+    spr.delete()
+    spr = game.createSprite(randint(0, 4), 0)
+    spr.turnRight(90)
+    points++
+}
+
+function touching() {
+    spr.delete()
+    sprG.delete()
+    basic.showNumber(points)
+    finished = true
 }
